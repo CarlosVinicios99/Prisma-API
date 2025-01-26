@@ -5,6 +5,7 @@ import {
   CallHandler
 } from '@nestjs/common';
 import { Observable, catchError } from 'rxjs';
+import { isPrismaError } from '../utils/is-prisma-error';
 
 @Injectable()
 export class DatabaseInterceptor implements NestInterceptor {
@@ -13,6 +14,9 @@ export class DatabaseInterceptor implements NestInterceptor {
 
     return next.handle().pipe(
       catchError(error => {
+        if(isPrismaError(error)){
+
+        }
         throw error
       })
     )
