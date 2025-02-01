@@ -43,13 +43,20 @@ export class PostsRepository {
   }
 
   async findAll(): Promise<PostEntity[]> {
-    return await this.prisma.post.findMany()
+    return await this.prisma.post.findMany({
+      include: {
+        author: true,
+      }
+    })
   }
 
   async findOne(id: number): Promise<PostEntity> {
     return await this.prisma.post.findUnique({
       where: {
         id
+      },
+      include: {
+        author: true
       }
     })
   }
