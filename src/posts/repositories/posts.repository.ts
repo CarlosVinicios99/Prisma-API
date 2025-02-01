@@ -99,7 +99,14 @@ export class PostsRepository {
       where: {
         id
       },
-      data
+      data,
+      include: {
+        author: {
+          select: {
+            name: true
+          }
+        }
+      }
     })
   }
 
